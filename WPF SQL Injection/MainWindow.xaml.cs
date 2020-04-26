@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Data.SQLite;
 using System.Data;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace WPF_SQL_Injection
 {
@@ -20,70 +22,70 @@ namespace WPF_SQL_Injection
                 con.Open();
                 using (var cmd = new SQLiteCommand(con))
                 {                    
-                    cmd.CommandText = "DROP TABLE IF EXISTS usuarios";
+                    cmd.CommandText = "DROP TABLE IF EXISTS users";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = @"CREATE TABLE usuarios(id INTEGER PRIMARY KEY,
-                    username TEXT, password TEXT, lastname TEXT, tipoacesso TEXT)";
+                    cmd.CommandText = @"CREATE TABLE users(id INTEGER PRIMARY KEY,
+                    username TEXT, password TEXT, lastname TEXT, accesstype TEXT)";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('mateus','ojsojsojs','Queiroz','Administrador')";
+                    cmd.CommandText = "INSERT INTO users(username, password, lastname, accesstype) VALUES('mateus','ojsojsojs','Queiroz','Administrator')";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('marcos','passwo','Silva','ReadOnly')";
+                    cmd.CommandText = "INSERT INTO users(username, password, lastname, accesstype) VALUES('marcos','passwo','Silva','ReadOnly')";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('leticia','isuiusius','Silveira','ReadOnly')";
+                    cmd.CommandText = "INSERT INTO users(username, password, lastname, accesstype) VALUES('leticia','isuiusius','Silveira','ReadOnly')";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('miguel','asasdasd','Felipe','Administrador')";
+                    cmd.CommandText = "INSERT INTO users(username, password, lastname, accesstype) VALUES('miguel','asasdasd','Felipe','Administrator')";
                     cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = "INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('davi','2222222','Moraes','ReadOnly')";
+                    cmd.CommandText = "INSERT INTO users(username, password, lastname, accesstype) VALUES('davi','2222222','Moraes','ReadOnly')";
                     cmd.ExecuteNonQuery();
                 }                
             }
         }
 
-        ///Below are some queries to test just copy and paste them
-        //1 or 1=1; drop table usuarios
-        //1 or 1=1; INSERT INTO usuarios(username, password, lastname, tipoacesso) VALUES('hacker','xxxxxx','robot','Administrador')
-        //1 UNION SELECT username, password, tipoacesso from usuarios
-        //1 UNION SELECT COUNT(*) ,username, tipoacesso FROM usuarios
+        ///Below are some queries to test, just copy and paste them
+        //1 or 1=1; drop table users
+        //1 or 1=1; INSERT INTO users(username, password, lastname, accesstype) VALUES('hacker','xxxxxx','robot','Administrator')
+        //1 UNION SELECT username, password, accesstype from users
+        //1 UNION SELECT COUNT(*) ,username, accesstype FROM users
 
 
         ///Using Interpreter
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            using (var con = new SQLiteConnection(cs))
-            {
-                con.Open();
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    using (var con = new SQLiteConnection(cs))
+        //    {
+        //        con.Open();
 
-                try
-                {
-                    using (var cmd = new SQLiteCommand("SELECT username, lastname, tipoacesso FROM usuarios WHERE id=" + campoPesquisa.Text, con))
-                    {
-                        using (SQLiteDataAdapter sqlAdap = new SQLiteDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            sqlAdap.Fill(dt);
-                            TabelaUsuarios.ItemsSource = null;
-                            TabelaUsuarios.ItemsSource = dt.AsDataView();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
+        //        try
+        //        {
+        //            using (var cmd = new SQLiteCommand("SELECT username, lastname, accesstype FROM users WHERE id=" + mySearch.Text, con))
+        //            {
+        //                using (SQLiteDataAdapter sqlAdap = new SQLiteDataAdapter(cmd))
+        //                {
+        //                    DataTable dt = new DataTable();
+        //                    sqlAdap.Fill(dt);
+        //                    UsersTable.ItemsSource = null;
+        //                    UsersTable.ItemsSource = dt.AsDataView();
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show(ex.Message);
+        //        }
+        //    }
+        //}
 
         ///Validating data
         //private void Button_Click(object sender, RoutedEventArgs e)
         //{
         //    var positiveIntRegex = new Regex("^[0-9]+$");
-        //    if (positiveIntRegex.IsMatch(campoPesquisa.Text))
+        //    if (positiveIntRegex.IsMatch(mySearch.Text))
         //    {
         //        using (var con = new SQLiteConnection(cs))
         //        {
@@ -91,14 +93,14 @@ namespace WPF_SQL_Injection
 
         //            try
         //            {
-        //                using (var cmd = new SQLiteCommand("SELECT username, lastname, tipoacesso FROM usuarios WHERE id=" + campoPesquisa.Text, con))
+        //                using (var cmd = new SQLiteCommand("SELECT username, lastname, accesstype FROM users WHERE id=" + mySearch.Text, con))
         //                {
         //                    using (SQLiteDataAdapter sqlAdap = new SQLiteDataAdapter(cmd))
         //                    {
         //                        DataTable dt = new DataTable();
         //                        sqlAdap.Fill(dt);
-        //                        TabelaUsuarios.ItemsSource = null;
-        //                        TabelaUsuarios.ItemsSource = dt.AsDataView();
+        //                        UsersTable.ItemsSource = null;
+        //                        UsersTable.ItemsSource = dt.AsDataView();
         //                    }
         //                }
         //            }
@@ -110,21 +112,21 @@ namespace WPF_SQL_Injection
         //    }
         //    else
         //    {
-        //        MessageBox.Show("Invalid Character");
+        //        MessageBox.Show("Invalid Character(s)");
         //    }
         //}
 
         ///Using ORM Linq + EntityFramework
         //private void Button_Click(object sender, RoutedEventArgs e)
-        //{      
-        //    using (var db = new UsuarioContexto())
-        //    {                
+        //{
+        //    using (var db = new UserContext())
+        //    {
         //        try
         //        {
-        //            DataTable dt = new DataTable();                    
-        //            TabelaUsuarios.ItemsSource = null;
-        //            TabelaUsuarios.ItemsSource = db.Usuarios
-        //                .Where(x => x.id == Int16.Parse(campoPesquisa.Text)).ToList();
+        //            DataTable dt = new DataTable();
+        //            UsersTable.ItemsSource = null;
+        //            UsersTable.ItemsSource = db.Users
+        //                .Where(x => x.id == Int16.Parse(mySearch.Text)).ToList();
         //        }
         //        catch (Exception ex)
         //        {

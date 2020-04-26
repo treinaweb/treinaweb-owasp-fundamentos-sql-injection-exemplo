@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="TabelaUsuarios" ItemsSource="{Binding minhaTabela}">
+        <DataGrid Name="UsersTable">
             
         </DataGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <TextBox Name="campoPesquisa" Width="400"/>
-            <Button  Content="Pesquisar" Click="Button_Click"/>
+            <TextBox Name="mySearch" Width="735"/>
+            <Button  Content="Search" Click="Button_Click"/>
         </StackPanel>
         
     </Grid>
