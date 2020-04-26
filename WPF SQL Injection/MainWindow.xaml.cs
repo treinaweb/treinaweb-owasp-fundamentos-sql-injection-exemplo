@@ -128,7 +128,7 @@ namespace WPF_SQL_Injection
                     UsersTable.ItemsSource = db.Users
                         .Where(x => x.id == Int16.Parse(mySearch.Text)).ToList();
 
-                    //Just ommiting the password column don't do it on a real application :) this is just a test app to demonstrate SQL injection, so it is OK :)
+                    //Just ommiting the password column don't do it on a real application :) this is just a test app to demonstrate how SQL injection works, so it is OK :)
                     UsersTable.Columns[2].Visibility = Visibility.Collapsed;
                 }
                 catch (Exception ex)
