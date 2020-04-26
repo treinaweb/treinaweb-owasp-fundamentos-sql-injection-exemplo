@@ -81,7 +81,7 @@ namespace WPF_SQL_Injection
         //    }
         //}
 
-        ///Validating data
+        ///Using Interpreter but and validating data
         //private void Button_Click(object sender, RoutedEventArgs e)
         //{
         //    var positiveIntRegex = new Regex("^[0-9]+$");
@@ -116,24 +116,27 @@ namespace WPF_SQL_Injection
         //    }
         //}
 
-        ///Using ORM Linq + EntityFramework
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    using (var db = new UserContext())
-        //    {
-        //        try
-        //        {
-        //            DataTable dt = new DataTable();
-        //            UsersTable.ItemsSource = null;
-        //            UsersTable.ItemsSource = db.Users
-        //                .Where(x => x.id == Int16.Parse(mySearch.Text)).ToList();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show(ex.Message);
-        //        }
-        //    }
-        //}
+        ///Using ORM  - EntityFramework with LINQ
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new UserContext())
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    UsersTable.ItemsSource = null;
+                    UsersTable.ItemsSource = db.Users
+                        .Where(x => x.id == Int16.Parse(mySearch.Text)).ToList();
+
+                    //Just ommiting the password column don't do it on a real application :) this is just a test app to demonstrate SQL injection, so it is OK :)
+                    UsersTable.Columns[2].Visibility = Visibility.Collapsed;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
 
     }
 }
