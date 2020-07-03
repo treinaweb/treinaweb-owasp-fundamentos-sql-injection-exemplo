@@ -5,6 +5,7 @@ I will keep updating this repository with more SQL Injection examples, I am work
 You need to comment/uncomment some pieces of code on the file MainWindow.xaml.cs to be able to test all examples that this app have.
 
 Português
+
 Um aplicativo WPF muito simples (realmente muito simples) para mostrar alguns exemplos de injeção de SQL.
 
 Continuarei atualizando este repositório com mais exemplos de injeção de SQL, estou trabalhando em um treinamento da OWASP e gostaria de demonstrar como evitar esse problema de uma maneira simples.
