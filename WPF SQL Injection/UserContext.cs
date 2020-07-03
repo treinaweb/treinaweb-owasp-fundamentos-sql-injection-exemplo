@@ -18,6 +18,7 @@ namespace WPF_SQL_Injection
     }
 
 
+
     public class User
     {
         public int id { get; set; }
