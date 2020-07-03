@@ -13,7 +13,6 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <TextBox Name="mySearch" Width="735"/>
             <Button  Content="Search" Click="Button_Click"/>
-        </StackPanel>
-        
+        </StackPanel>        
     </Grid>
 </Window>
