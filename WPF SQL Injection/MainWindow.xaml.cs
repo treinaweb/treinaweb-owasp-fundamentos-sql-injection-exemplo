@@ -78,7 +78,7 @@ namespace WPF_SQL_Injection
         //        {
         //            MessageBox.Show(ex.Message);
         //        }
-        //    }
+        //    } 
         //}
 
         ///Using Interpreter but and validating data
