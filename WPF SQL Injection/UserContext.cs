@@ -17,8 +17,6 @@ namespace WPF_SQL_Injection
                     => options.UseSqlite(@"Data Source=C:\SQLite\test.db");
     }
 
-
-
     public class User
     {
         public int id { get; set; }
